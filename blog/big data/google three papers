@@ -1,0 +1,13 @@
+MapReduce Simplified Data Processing on Large Clusters
+The Google File System
+Bigtable A Distributed Storage System for Structured Data
+
+文件被分割成很多块，使用冗余的方式储存于商用机器集群上
+1.按时间算第一篇的论文应该2003年公布的 Google File System，这是一个可扩展的分布式文件系统，用于大型的、分布式的、对大量数据进行访问的应用。文件被分割成很多块，使用冗余的方式储存于商用机器集群上(基本上Google每篇论文都是关于“商用机型”)。
+
+Mapreduce是针对分布式并行计算的一套编程模型
+2.2004年发布的的 MapReduce现在基本上可以代表大数据。主要思想是将任务分解然后在多台处理能力较弱的计算节点中同时处理，将结果合并从而完成大数据处理，传说中Google使用它计算他们的搜索索引。Mikio L. Braun(柏林工业大学机器学习学博士后，TWIMPACT联合创始人兼首席数据科学家)认为其工作模式应该是：Google把所有抓取的页面都放置于他们的集群上，并且每天都使用MapReduce来重算。
+
+为了管理巨大的Table，把Table根据行分割，这些分割后的数据统称为：Tablets。每个Tablets大概有 100-200 MB，每个机器存储100个左右的 Tablets。底层的架构是：GFS。由于GFS是一种分布式的文件系统，采用Tablets的机制后，可以获得很好的负载均衡。比如：可以把经常响应的表移动到其他空闲机器上，然后快速重建。
+3.Bigtable发布于2006年，启发了无数的NoSQL数据库，比如：Cassandra、HBase等等。Cassandra架构中有一半是模仿Bigtable，包括了数据模型、SSTables以及提前写日志（另一半是模仿Amazon的Dynamo数据库，使用点对点集群模式）。
+
