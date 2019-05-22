@@ -1,0 +1,30 @@
+Gradient descent variants
+    Batch gradient descent
+    Stochastic gradient descent
+    Mini-batch gradient descent
+
+Gradient descent optimization algorithms
+    Momentum
+    Nesterov accelerated gradient
+    Adagrad
+    Adadelta
+    RMSprop
+    Adam
+    AdaMax
+    Nadam
+    AMSGrad
+
+Parallelizing and distributing SGD
+    Hogwild!
+    Downpour SGD
+    Delay-tolerant Algorithms for SGD
+    TensorFlow
+    Elastic Averaging SGD
+
+Additional strategies for optimizing SGD
+    Shuffling and Curriculum Learning
+    Batch normalization
+    Early Stopping
+    Gradient noise
+
+In summary, RMSprop is an extension of Adagrad that deals with its radically diminishing learning rates. It is identical to Adadelta, except that Adadelta uses the RMS of parameter updates in the numinator update rule. Adam, finally, adds bias-correction and momentum to RMSprop. Insofar, RMSprop, Adadelta, and Adam are very similar algorithms that do well in similar circumstances. Kingma et al. [14:1] show that its bias-correction helps Adam slightly outperform RMSprop towards the end of optimization as gradients become sparser. Insofar, Adam might be the best overall choice.
