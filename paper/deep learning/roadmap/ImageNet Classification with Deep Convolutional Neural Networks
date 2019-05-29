@@ -1,0 +1,19 @@
+abstract
+We trained a large, deep convolutional neural network to classify the 1.2 million high-resolution images in the ImageNet LSVRC-2010 contest into the 1000 dif- ferent classes. On the test data, we achieved top-1 and top-5 error rates of 37.5% and 17.0% which is considerably better than the previous state-of-the-art. The neural network, which has 60 million parameters and 650,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and three fully-connected layers with a final 1000-way softmax. To make train- ing faster, we used non-saturating neurons and a very efficient GPU implemen- tation of the convolution operation. To reduce overfitting in the fully-connected layers we employed a recently-developed regularization method called “dropout” that proved to be very effective. We also entered a variant of this model in the ILSVRC-2012 competition and achieved a winning top-5 test error rate of 15.3%, compared to 26.2% achieved by the second-best entry.
+
+
+alexnet
+主要改进
+1、AlexNet采用了Relu激活函数：ReLU(x) = max(x,0)
+
+2、AlexNet另一个创新是LRN(Local Response Normalization） 局部响应归一化，LRN模拟神经生物学上一个叫做 侧抑制（lateral inhibitio）的功能，侧抑制指的是被激活的神经元会抑制相邻的神经元。LRN局部响应归一化借鉴侧抑制的思想实现局部抑制，使得响应比较大的值相对更大，提高了模型的泛化能力。LRN只对数据相邻区域做归一化处理，不改变数据的大小和维度。
+
+3、AlexNet还应用了Overlapping（重叠池化），重叠池化就是池化操作在部分像素上有重合。池化核大小是n×n，步长是k，如果k=n，则是正常池化，如果 k<n, 则是重叠池化。官方文档中说明，重叠池化的运用减少了top-5和top-1错误率的0.4%和0.3%。重叠池化有避免过拟合的作用。
+
+4、AlexNet在fc6、fc7全连接层引入了drop out的功能。dropout是指在深度学习网络的训练过程中，对于神经网络单元，按照一定的概率（AlexNet是50%，这种情况下随机生成的网络结构最多）将其暂时从网络中丢弃（保留其权值），不再对前向和反向传输的数据响应。注意是暂时，对于随机梯度下降来说，由于是随机丢弃，故而相当于每一个mini-batch都在训练不同的网络，drop out可以有效防止模型过拟合，让网络泛化能力更强，同时由于减少了网络复杂度，加快了运算速度。还有一种观点认为drop out有效的原因是对样本增加来噪声，变相增加了训练样本。
+
+5、数据增强：在数据处理这部分作者提到过将每张图片处理为256××256的大小，但网络结构图中的输入却为224××224，这是因为作者在256××256大小的图片上使用了一个224××224的滑动窗口，将每个滑动窗口中的内容作为输入，这样就能将整个数据集扩大到原来的(256−224)×(256−224)=1024(256−224)×(256−224)=1024倍
+
+
+减少过拟合方法
+data augmentation（镜像反射和随机剪裁、改变训练样本rgb通道的强度值）、dropout
